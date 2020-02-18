@@ -34,11 +34,11 @@ STLMeshIO
   this->AddSupportedWriteExtension(".STL");
 
   // STL uses float type by default to store point data
-  this->SetPointComponentType(FLOAT);
+  this->SetPointComponentType(IOComponentEnum::FLOAT);
 
   // STL uses UINT32 to store the number of points,
   // hence the point Ids are of the same UINT32 type.
-  this->SetCellComponentType(UINT);
+  this->SetCellComponentType(IOComponentEnum::UINT);
 
   this->SetPointDimension(3);
 }
@@ -88,11 +88,11 @@ STLMeshIO
 {
 
   // Use default filetype
-  if ( this->GetFileType() == ASCII )
+  if ( this->GetFileType() == IOFileEnum::ASCII )
     {
     this->m_InputStream.open(this->m_FileName.c_str(), std::ios::in);
     }
-  else if ( this->GetFileType() == BINARY )
+  else if ( this->GetFileType() == IOFileEnum::BINARY )
     {
     this->m_InputStream.open(this->m_FileName.c_str(), std::ios::in | std::ios::binary);
     }
@@ -123,9 +123,9 @@ STLMeshIO
   // Determine file type
   if ( inputFileIsASCII )
     {
-    if ( this->GetFileType() != ASCII )
+    if ( this->GetFileType() != IOFileEnum::ASCII )
       {
-      this->SetFileType(ASCII);
+      this->SetFileType(IOFileEnum::ASCII);
 #ifdef _WIN32
       this->m_InputStream.close();
       this->m_InputStream.open(this->m_FileName.c_str(), std::ios::in);
@@ -141,9 +141,9 @@ STLMeshIO
     }
   else
     {
-    if ( this->GetFileType() != BINARY )
+    if ( this->GetFileType() != IOFileEnum::BINARY )
       {
-      this->SetFileType(BINARY);
+      this->SetFileType(IOFileEnum::BINARY);
 #ifdef _WIN32
       this->m_InputStream.close();
       this->m_InputStream.open(this->m_FileName.c_str(), std::ios::in | std::ios::binary);
@@ -384,7 +384,7 @@ STLMeshIO
   while( cellItr != cellEnd )
     {
 
-    *cellPointIds++ = MeshIOBase::TRIANGLE_CELL;
+    *cellPointIds++ = static_cast<int>(CellGeometryEnum::TRIANGLE_CELL);
     *cellPointIds++ = numberOfPointsInCell;
 
     //
@@ -406,11 +406,11 @@ STLMeshIO
 {
 
   // Use default filetype
-  if ( this->GetFileType() == ASCII )
+  if ( this->GetFileType() == IOFileEnum::ASCII )
     {
     this->m_OutputStream.open(this->m_FileName.c_str(), std::ios::out);
     }
-  else if ( this->GetFileType() == BINARY )
+  else if ( this->GetFileType() == IOFileEnum::BINARY )
     {
     this->m_OutputStream.open(this->m_FileName.c_str(), std::ios::out | std::ios::binary);
     }
@@ -421,11 +421,11 @@ STLMeshIO
     return;
     }
 
-  if ( this->GetFileType() == ASCII )
+  if ( this->GetFileType() == IOFileEnum::ASCII )
     {
     this->m_OutputStream << "solid ascii" << std::endl;
     }
-  else if ( this->GetFileType() == BINARY )
+  else if ( this->GetFileType() == IOFileEnum::BINARY )
     {
     //
     // http://en.wikipedia.org/wiki/STL_(file_format)#Binary_STL
@@ -453,83 +453,83 @@ STLMeshIO
 ::WritePoints( void * buffer )
 {
 
-  const IOComponentType pointValueType = this->GetPointComponentType();
+  const IOComponentEnum pointValueType = this->GetPointComponentType();
 
   switch( pointValueType )
     {
-    case UCHAR:
+    case IOComponentEnum::UCHAR:
       {
       using CoordType = unsigned char;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case CHAR:
+    case IOComponentEnum::CHAR:
       {
       using CoordType = char;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case USHORT:
+    case IOComponentEnum::USHORT:
       {
       using CoordType = unsigned short;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case SHORT:
+    case IOComponentEnum::SHORT:
       {
       using CoordType = short;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case UINT:
+    case IOComponentEnum::UINT:
       {
       using CoordType = unsigned int;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case INT:
+    case IOComponentEnum::INT:
       {
       using CoordType = int;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case ULONG:
+    case IOComponentEnum::ULONG:
       {
       using CoordType = unsigned long;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case LONG:
+    case IOComponentEnum::LONG:
       {
       using CoordType = long;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case ULONGLONG:
+    case IOComponentEnum::ULONGLONG:
       {
       using CoordType = unsigned long long;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case LONGLONG:
+    case IOComponentEnum::LONGLONG:
       {
       using CoordType = long long;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case FLOAT:
+    case IOComponentEnum::FLOAT:
       {
       using CoordType = float;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case DOUBLE:
+    case IOComponentEnum::DOUBLE:
       {
       using CoordType = double;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
       break;
       }
-    case LDOUBLE:
+    case IOComponentEnum::LDOUBLE:
       {
       using CoordType = long double;
       this->WritePointsTyped<CoordType>( reinterpret_cast< CoordType * >( buffer ) );
@@ -546,7 +546,7 @@ void
 STLMeshIO
 ::WriteCells( void * buffer )
 {
-  if ( this->GetFileType() == BINARY )
+  if ( this->GetFileType() == IOFileEnum::BINARY )
     {
     this->WriteCellsAsBinary( buffer );
     }
@@ -580,11 +580,11 @@ STLMeshIO
 
   for ( SizeValueType polygonItr = 0; polygonItr < numberOfPolygons; polygonItr++ )
     {
-    const auto cellType = static_cast< CellGeometryType >( cellsBuffer[index2++] );
+    const auto cellType = static_cast< CellGeometryEnum >( cellsBuffer[index2++] );
     const auto numberOfVerticesInCell = static_cast< IdentifierType >( cellsBuffer[index2++] );
 
-    const bool isTriangle = ( cellType == TRIANGLE_CELL ) ||
-                            ( cellType == POLYGON_CELL && numberOfVerticesInCell == 3 );
+    const bool isTriangle = ( cellType == CellGeometryEnum::TRIANGLE_CELL ) ||
+                            ( cellType == CellGeometryEnum::POLYGON_CELL && numberOfVerticesInCell == 3 );
 
     if( isTriangle )
       {
@@ -653,11 +653,11 @@ STLMeshIO
 
   for ( SizeValueType polygonItr = 0; polygonItr < numberOfPolygons; polygonItr++ )
     {
-    const auto cellType = static_cast< CellGeometryType >( cellsBuffer[index++] );
+    const auto cellType = static_cast< CellGeometryEnum >( cellsBuffer[index++] );
     const auto numberOfVerticesInCell = static_cast< IdentifierType >( cellsBuffer[index++] );
 
-    const bool isTriangle = ( cellType == TRIANGLE_CELL ) ||
-                            ( cellType == POLYGON_CELL && numberOfVerticesInCell == 3 );
+    const bool isTriangle = ( cellType == CellGeometryEnum::TRIANGLE_CELL ) ||
+                            ( cellType == CellGeometryEnum::POLYGON_CELL && numberOfVerticesInCell == 3 );
 
     if( !isTriangle )
       {
