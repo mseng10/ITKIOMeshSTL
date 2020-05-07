@@ -1,9 +1,7 @@
 ITKIOMeshSTL
 ============
 
-.. image:: https://dev.azure.com/InsightSoftwareConsortium/ITKModules/_apis/build/status/InsightSoftwareConsortium.ITKIOMeshSTL?branchName=master
-    :target: https://dev.azure.com/InsightSoftwareConsortium/ITKModules/_build/latest?definitionId=2&branchName=master
-    :alt: Build status
+.. image:: https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL/workflows/Build,%20test,%20package/badge.svg
 
 .. image:: https://img.shields.io/pypi/v/itk-iomeshstl.svg
     :target: https://pypi.python.org/pypi/itk-iomeshstl
