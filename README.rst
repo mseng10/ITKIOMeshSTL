@@ -8,7 +8,7 @@ ITKIOMeshSTL
     :alt: PyPI
 
 .. image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
-    :target: https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL/blob/master/LICENSE)
+    :target: https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL/blob/master/LICENSE
     :alt: License
 
 Overview
