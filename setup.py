@@ -13,7 +13,7 @@ except ImportError:
 
 setup(
     name='itk-iomeshstl',
-    version='2.1.0',
+    version='2.2.0',
     author='Luis Ibáñez',
     author_email='community@itk.org',
     packages=['itk'],
