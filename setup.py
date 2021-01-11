@@ -48,6 +48,6 @@ setup(
     keywords='ITK InsightToolkit STL Mesh',
     url=r'https://github.com/InsightSoftwareConsortium/ITKIOMeshSTL',
     install_requires=[
-        r'itk>=5.1.1'
+        r'itk>=5.2rc1'
     ]
     )
